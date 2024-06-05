@@ -53,17 +53,6 @@
                             @enderror
                         </div>
 
-                        <div class="form-group">
-                            <label>Password</label>
-                            <input type="password" name="password" value="{{ old('password') }}" class="form-control"
-                                placeholder="Password Here ..">
-                            <div class="form-text text-white">Minimum Five Word</div>
-
-                            @error('password')
-                                <p class="text-danger text-bold">{{ $message }}</p>
-                            @enderror
-                        </div>
-
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>

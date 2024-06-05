@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('packagelists', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id');
-            $table->foreignId('package_id');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('package_id')->constrained()->onDelete('cascade');
             $table->date('start_date');
             $table->boolean('list_status')->default(0);
             $table->timestamps();

@@ -18,26 +18,27 @@
                         </thead>
                         <tbody>
                             @foreach ($reports as $report)
-                                <tr>
-                                    <td>{{ $report->id }}</td>
-                                    <td>{{ $report->user->name }}</td>
-                                    <td>{{ $report->package->package_name }}</td>
+                                @php
+                                    $notified_date = $report->start_date->addDay(
+                                        $report->package->package_duartion - 2,
+                                    );
+                                @endphp
 
-                                    <td>
-                                        @php
-                                            $notified_date = $report->start_date->addDay(
-                                                $report->package->package_duartion - 2,
-                                            );
+                                @if ($notified_date < now())
+                                    <tr>
+                                        <td>{{ $report->id }}</td>
+                                        <td>{{ $report->user->name }}</td>
+                                        <td>{{ $report->package->package_name }}</td>
 
-                                        @endphp
-
-                                        @if ($notified_date < now())
-                                            <a href="" class="btn btn-sm btn-primary">
+                                        <td>
+                                            <a href="{{ route('notification.renew', $report->id) }}"
+                                                class="btn btn-sm btn-primary">
                                                 RENEW
                                             </a>
-                                        @endif
-                                    </td>
-                                </tr>
+
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
 
                         </tbody>

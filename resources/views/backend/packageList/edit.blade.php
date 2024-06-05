@@ -45,7 +45,9 @@
 
                         <div class="form-group">
                             <label>Start Date</label>
-                            <input type="date" value="{{ $list->start_date }}" name="start_date" class="form-control">
+                            <input onclick="$(this).attr('type', 'date')" type="text"
+                                value="{{ date('m-d-Y', strtotime($list->start_date)) }}" name="start_date"
+                                class="form-control editDateIn">
 
                             @error('start_date')
                                 <p class="text-danger text-bold">{{ $message }}</p>

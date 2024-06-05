@@ -21,14 +21,6 @@ class ReportController extends Controller
         return view('backend.report.index', compact('reports', 'totalPrice'));
     }
 
-    //Notification Page
-    public function notification()
-    {
-        $reports = Packagelist::with('user', 'package')->get();
-
-        return view('backend.report.notification', compact('reports'));
-    }
-
     public function sorting(Request $request)
     {
         if ($request->has('start_date')) {
@@ -51,5 +43,43 @@ class ReportController extends Controller
             ]);
         }
 
+    }
+
+    //Notification Page
+    public function notification()
+    {
+        $reports = Packagelist::with('user', 'package')->get();
+        return view('backend.report.notification', compact('reports'));
+    }
+
+    //Package Renew Page
+    public function renew($id)
+    {
+        $list = Packagelist::findOrfail($id);
+        return view('backend.report.editNoti', compact('list'));
+    }
+
+    //Package Update
+    public function renewUpdate(Request $request, $id)
+    {
+        $request->validate(
+            [
+                'start_date' => 'required|date',
+            ],
+            [
+                'start_date.required' => 'Chose Date!',
+            ]
+        );
+
+        $list = Packagelist::find($id);
+        $list->update([
+            'start_date' => $request->start_date,
+        ]);
+
+        if ($list) {
+            return redirect()->route('notification')->with('success', 'Succefully Renew!');
+        } else {
+            return back()->with('error', 'SomeThing Wrong!');
+        }
     }
 }

@@ -26,9 +26,9 @@
                             @foreach ($lists as $list)
                                 <tr>
                                     <td>{{ $list->id }}</td>
-                                    <td>{{ $list->user->name }}</td>
-                                    <td>{{ $list->package->package_name }}</td>
-                                    <td>{{ $list->start_date }}</td>
+                                    <td>{{ $list->user->name ?? 'N/A' }}</td>
+                                    <td>{{ $list->package->package_name ?? 'N/A' }}</td>
+                                    <td>{{ date('m-d-Y', strtotime($list->start_date)) }}</td>
 
                                     <td>
                                         <a class="{{ $list->list_status == 1 ? 'badge badge-info' : 'badge badge-dark' }}">

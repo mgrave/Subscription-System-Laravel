@@ -30,7 +30,6 @@ class UserController extends Controller
                 'name'     => 'required|max:20',
                 'email'    => 'required|max:50|email|unique:users',
                 'phone'    => 'required|max:14|unique:users',
-                'password' => 'required|min:5',
             ],
             [
                 'name.required'     => 'Name Is Required!',
@@ -38,7 +37,6 @@ class UserController extends Controller
                 'email.unique'      => 'Email Already Exist!',
                 'phone.required'    => 'Phone Is Required!',
                 'phone.unique'      => 'Phone Already Exist!',
-                'password.required' => 'Password Is Required!',
             ]
         );
 
@@ -47,7 +45,7 @@ class UserController extends Controller
             'email'    => $request->email,
             'phone'    => $request->phone,
             'facebook' => $request->facebook,
-            'password' => Hash::make($request->password),
+            'password' => Hash::make('12345'),
         ]);
 
         if ($user) {
@@ -78,18 +76,16 @@ class UserController extends Controller
 
         $request->validate(
             [
-                'name'     => 'required|max:20',
-                'email'    => 'required|max:50|email|unique:users,email,' . $user->id,
-                'phone'    => 'required|max:14|unique:users,phone,' . $user->id,
-                'password' => 'required|min:5',
+                'name'  => 'required|max:20',
+                'email' => 'required|max:50|email|unique:users,email,' . $user->id,
+                'phone' => 'required|max:14|unique:users,phone,' . $user->id,
             ],
             [
-                'name.required'     => 'Name Is Required!',
-                'email.required'    => 'Email Is Required!',
-                'email.unique'      => 'Email Already Exist!',
-                'phone.required'    => 'Phone Is Required!',
-                'phone.unique'      => 'Phone Already Exist!',
-                'password.required' => 'Password Is Required!',
+                'name.required'  => 'Name Is Required!',
+                'email.required' => 'Email Is Required!',
+                'email.unique'   => 'Email Already Exist!',
+                'phone.required' => 'Phone Is Required!',
+                'phone.unique'   => 'Phone Already Exist!',
             ]
         );
 
@@ -98,7 +94,6 @@ class UserController extends Controller
             'email'    => $request->email,
             'phone'    => $request->phone,
             'facebook' => $request->facebook,
-            'password' => Hash::make($request->password),
         ]);
 
         if ($user) {

@@ -84,3 +84,5 @@ Route::controller(ReportController::class)
     });
 
 Route::get('notification', [ReportController::class, 'notification'])->name('notification');
+Route::get('notification/renew/{id}', [ReportController::class, 'renew'])->name('notification.renew');
+Route::post('notification/update/{id}', [ReportController::class, 'renewUpdate'])->name('notification.update');
