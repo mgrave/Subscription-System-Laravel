@@ -7,7 +7,7 @@
         <div class="col-md-3">
 
             <!-- Profile Image -->
-            <div class="card card-primary card-outline">
+            <div class="card card-primary card-outline pt-5 pb-3">
                 <div class="card-body box-profile">
                     <div class="text-center">
 
@@ -35,7 +35,7 @@
         <!-- /.col -->
 
         <div class="col-md-9">
-            <div class="card">
+            <div class="card card-primary card-outline">
                 <div class="card-body">
                     <form class="form-horizontal" action="{{ route('profile.update') }}" method="POST"
                         enctype="multipart/form-data">

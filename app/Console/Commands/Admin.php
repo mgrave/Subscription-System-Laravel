@@ -29,10 +29,10 @@ class Admin extends Command
     public function handle()
     {
         User::create([
-            'name'              => 'Anik',
-            'phone'             => '01729101989',
-            'email'             => 'anik@gmail.com',
-            'password'          => Hash::make('12345'),
+            'name'              => 'Admin',
+            'phone'             => '0170000000',
+            'email'             => 'admin@gmail.com',
+            'password'          => Hash::make('password'),
             'role'              => 1,
             'status'            => 1,
             'email_verified_at' => now(),

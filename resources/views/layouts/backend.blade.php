@@ -131,16 +131,6 @@
                         </li>
 
                         <li class="nav-item">
-                            <a href="{{ route('user.index') }}"
-                                class="nav-link {{ Route::is('user.*') ? 'active' : '' }}">
-                                <i class="nav-icon fas fa-user-alt"></i>
-                                <p>
-                                    Users
-                                </p>
-                            </a>
-                        </li>
-
-                        <li class="nav-item">
                             <a href="{{ route('package.index') }}"
                                 class="nav-link {{ Route::is('package.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-cube"></i>
@@ -151,11 +141,21 @@
                         </li>
 
                         <li class="nav-item">
+                            <a href="{{ route('user.index') }}"
+                                class="nav-link {{ Route::is('user.*') ? 'active' : '' }}">
+                                <i class="nav-icon fas fa-user-alt"></i>
+                                <p>
+                                    Users
+                                </p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
                             <a href="{{ route('packageList.index') }}"
                                 class="nav-link {{ Route::is('packageList.*') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-list"></i>
                                 <p>
-                                    Package List
+                                    Active Package
                                 </p>
                             </a>
                         </li>
@@ -175,7 +175,7 @@
                                 class="nav-link {{ Route::is('notification') ? 'active' : '' }}">
                                 <i class="nav-icon fas fa-bell"></i>
                                 <p>
-                                    Notification
+                                    Expired
                                 </p>
                             </a>
                         </li>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 04, 2024 at 12:14 PM
+-- Generation Time: Jun 10, 2024 at 07:05 AM
 -- Server version: 8.0.30
 -- PHP Version: 8.2.11
 
@@ -116,8 +116,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '0001_01_01_000000_create_users_table', 1),
 (2, '0001_01_01_000001_create_cache_table', 1),
 (3, '0001_01_01_000002_create_jobs_table', 1),
-(5, '2024_06_03_100426_create_packages_table', 2),
-(6, '2024_06_03_120258_create_packagelists_table', 3);
+(4, '2024_06_03_100426_create_packages_table', 1),
+(5, '2024_06_03_120258_create_packagelists_table', 1);
 
 -- --------------------------------------------------------
 
@@ -135,15 +135,6 @@ CREATE TABLE `packagelists` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `packagelists`
---
-
-INSERT INTO `packagelists` (`id`, `user_id`, `package_id`, `start_date`, `list_status`, `created_at`, `updated_at`) VALUES
-(3, 7, 7, '2024-06-27', 1, '2024-06-03 23:10:50', '2024-06-03 23:33:47'),
-(4, 8, 8, '2024-08-27', 0, '2024-06-03 23:33:22', '2024-06-03 23:33:52'),
-(5, 6, 9, '2024-08-27', 1, '2024-06-03 23:33:38', '2024-06-03 23:33:53');
-
 -- --------------------------------------------------------
 
 --
@@ -160,17 +151,6 @@ CREATE TABLE `packages` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `packages`
---
-
-INSERT INTO `packages` (`id`, `package_name`, `package_duartion`, `package_price`, `package_status`, `created_at`, `updated_at`) VALUES
-(6, 'Standard', 90, 300, 1, '2024-06-03 06:08:54', '2024-06-03 06:08:54'),
-(7, 'Basic', 120, 400, 1, '2024-06-03 06:09:36', '2024-06-03 06:09:36'),
-(8, 'Premium', 180, 600, 1, '2024-06-03 06:10:01', '2024-06-03 06:10:01'),
-(9, 'Netflix', 60, 500, 1, '2024-06-03 06:10:32', '2024-06-03 06:10:32'),
-(10, 'Amazon', 60, 800, 1, '2024-06-03 06:10:51', '2024-06-03 06:10:51');
-
 -- --------------------------------------------------------
 
 --
@@ -182,13 +162,6 @@ CREATE TABLE `password_reset_tokens` (
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `password_reset_tokens`
---
-
-INSERT INTO `password_reset_tokens` (`email`, `token`, `created_at`) VALUES
-('anik@gmail.com', '$2y$12$Ic90FsBkmi.gRIPQHVUauugyByyMKsE2CiBk4FLSqFDkesS7CyY8O', '2024-06-02 01:33:32');
 
 -- --------------------------------------------------------
 
@@ -210,7 +183,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('cU7sAufhcO5oFwjOaiYRONpxDG5vUrqryUYCQQN2', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiVXppTHV4R2lYbG1oZ25VdFVmaDRaZU1NR1NSakVOQzZ1TVVSWUI1ciI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czoyMToiaHR0cDovLzEyNy4wLjAuMTo4MDAwIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL2luZGV4Ijt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1717503215);
+('1aLbT3X1MwVNCnahpX73m8trA0JOhTRavX0fp0N6', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/125.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiaTNreURGWXZsc0FYZWpGRnBlYUxyQTJzZFllOVR3dGJtd3R3QUlzdCI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozOToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL3BhY2thZ2VMaXN0L2luZGV4Ijt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7fQ==', 1718003074);
 
 -- --------------------------------------------------------
 
@@ -220,6 +193,8 @@ INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, 
 
 CREATE TABLE `users` (
   `id` bigint UNSIGNED NOT NULL,
+  `package_id` bigint UNSIGNED DEFAULT NULL,
+  `start_date` bigint UNSIGNED DEFAULT NULL,
   `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -238,11 +213,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `phone`, `image`, `role`, `status`, `facebook`, `password`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'Anik', 'tajbinanik02@gmail.com', '01729101989', '1717399510.jpg', 1, 1, NULL, '$2y$12$BmCQgy4uiJMMPuo0EAFJSe6OJU.KpbIKOxUiqJudJ4g0YuaMxUc8a', '2024-06-02 01:11:37', '1kl2AUVPV2Am8O9XCt4HcbPLtgrrNScHnTLS2LEEXTHoKrJjUmLaf58v6V7B', '2024-06-02 01:11:37', '2024-06-02 01:11:37'),
-(6, 'Shagor', 'shagor@gmail.com', '(816) 278-41', NULL, 0, 1, 'https://www.facebook.com/profile.php?id=100068254637624', '$2y$12$4dxoiTsIzU1I/0qKYXqTr.z7fygSbQ.PjaMK0TX6vrezNf9Oyttpa', NULL, NULL, '2024-06-03 03:10:23', '2024-06-03 05:20:18'),
-(7, 'Nafiz', 'nafiz@gmail.com', '602-6026', NULL, 0, 1, '#', '$2y$12$UhfWGNQGBlWtA4vDD4udMu90geLbLnCJHmXSRnOHIY2GsfBc22YKe', NULL, NULL, '2024-06-03 23:10:20', '2024-06-03 23:10:20'),
-(8, 'Nabil', 'nabil@gmail.com', '14133254', NULL, 0, 1, '#', '$2y$12$1CFzfX63akd8kheAvo2FkOf6iujrho1U0TvodLdaWz3HipW2njFg.', NULL, NULL, '2024-06-03 23:32:51', '2024-06-03 23:32:51');
+INSERT INTO `users` (`id`, `package_id`, `start_date`, `name`, `email`, `phone`, `image`, `role`, `status`, `facebook`, `password`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, NULL, NULL, 'Admin', 'admin@gmail.com', '0170000000', NULL, 1, 1, NULL, '$2y$12$qcxDT6mc7qdhYIgL2pI7C.1w5KCT7yFIgHcDfA11wgBPFj2LamHXC', '2024-06-10 01:04:05', 'wQ9Jz4JGmy', '2024-06-10 01:04:05', '2024-06-10 01:04:05');
 
 --
 -- Indexes for dumped tables
@@ -290,7 +262,9 @@ ALTER TABLE `migrations`
 -- Indexes for table `packagelists`
 --
 ALTER TABLE `packagelists`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `packagelists_user_id_foreign` (`user_id`),
+  ADD KEY `packagelists_package_id_foreign` (`package_id`);
 
 --
 -- Indexes for table `packages`
@@ -340,25 +314,36 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `packagelists`
 --
 ALTER TABLE `packagelists`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `packages`
 --
 ALTER TABLE `packages`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `packagelists`
+--
+ALTER TABLE `packagelists`
+  ADD CONSTRAINT `packagelists_package_id_foreign` FOREIGN KEY (`package_id`) REFERENCES `packages` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `packagelists_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

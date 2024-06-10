@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Packagelist;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -11,20 +12,15 @@ class ReportController extends Controller
     //View Report Page
     public function index()
     {
-        $reports    = Packagelist::with('user', 'package')->get();
-        $totalPrice = null;
+        $reports = User::with('package')->whereNotIn('role', [1])->get();
 
-        foreach ($reports as $report) {
-            $totalPrice = $report->package->sum('package_price');
-        }
-
-        return view('backend.report.index', compact('reports', 'totalPrice'));
+        return view('backend.report.index', compact('reports'));
     }
 
     public function sorting(Request $request)
     {
         if ($request->has('start_date')) {
-            $reports = Packagelist::with('user', 'package')->where('start_date', $request->start_date)->get();
+            $reports = User::with('package')->where('start_date', $request->start_date)->get();
 
             return response()->json([
                 'status' => 200,
@@ -33,7 +29,7 @@ class ReportController extends Controller
         } elseif ($request->has('days')) {
 
             $day     = (int) $request->days;
-            $reports = Packagelist::with('user', 'package')
+            $reports = User::with('package')
                 ->whereBetween('start_date', [now()->subDays($day), now()])
                 ->get();
 
@@ -48,14 +44,14 @@ class ReportController extends Controller
     //Notification Page
     public function notification()
     {
-        $reports = Packagelist::with('user', 'package')->get();
+        $reports = User::with('package')->whereNotIn('role', [1])->get();
         return view('backend.report.notification', compact('reports'));
     }
 
     //Package Renew Page
     public function renew($id)
     {
-        $list = Packagelist::findOrfail($id);
+        $list = User::findOrfail($id);
         return view('backend.report.editNoti', compact('list'));
     }
 
@@ -71,7 +67,7 @@ class ReportController extends Controller
             ]
         );
 
-        $list = Packagelist::find($id);
+        $list = User::find($id);
         $list->update([
             'start_date' => $request->start_date,
         ]);

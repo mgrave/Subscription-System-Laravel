@@ -11,6 +11,11 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable;
 
+    public function package()
+    {
+        return $this->belongsTo(Package::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -26,6 +31,8 @@ class User extends Authenticatable
         'facebook',
         'email_verified_at',
         'remember_token',
+        'package_id',
+        'start_date',
     ];
 
     /**
@@ -47,6 +54,7 @@ class User extends Authenticatable
     {
         return [
             'email_verified_at' => 'datetime',
+            'start_date'        => 'datetime',
             'password'          => 'hashed',
         ];
     }

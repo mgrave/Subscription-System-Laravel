@@ -19,6 +19,8 @@
                                 <th>Phone</th>
                                 <th>Email</th>
                                 <th>Facebook</th>
+                                <th>Package</th>
+                                <th>Start Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
@@ -30,11 +32,17 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->email }}</td>
+
                                     <td>
                                         <a class="badge badge-info" href="{{ $user->facebook }}">
                                             Account
                                         </a>
                                     </td>
+
+                                    <td>{{ $user->package->package_name }}</td>
+
+                                    <td>{{ $user->start_date }}</td>
+
                                     <td>
                                         <a class="{{ $user->status == 1 ? 'badge badge-info' : 'badge badge-dark' }}">
                                             {{ $user->status == 1 ? 'Active' : 'Deactive' }}

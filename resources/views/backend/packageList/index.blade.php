@@ -1,10 +1,6 @@
 @extends('layouts.backend')
 @section('Title', 'all-package-list')
-@section('contetn_header', 'ALL PACKAGE LIST')
-
-@section('buttons')
-    <a href="{{ route('packageList.create') }}" class="btn btn-sm btn-primary">+ Add New</a>
-@endsection
+@section('contetn_header', 'RUNNING PACKAGE LIST')
 
 @section('content')
     <div class="row  d-flex justify-content-center">
@@ -16,54 +12,34 @@
                             <tr>
                                 <th>Id</th>
                                 <th>User Name</th>
+                                <th>User Email</th>
                                 <th>Package Name</th>
-                                <th>Start Date</th>
+                                <th>Duration</th>
                                 <th>Status</th>
-                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($lists as $list)
-                                <tr>
-                                    <td>{{ $list->id }}</td>
-                                    <td>{{ $list->user->name ?? 'N/A' }}</td>
-                                    <td>{{ $list->package->package_name ?? 'N/A' }}</td>
-                                    <td>{{ date('m-d-Y', strtotime($list->start_date)) }}</td>
+                                @php
+                                    $notified_date = $list->start_date?->addDay($list->package->package_duartion - 2);
+                                @endphp
 
-                                    <td>
-                                        <a class="{{ $list->list_status == 1 ? 'badge badge-info' : 'badge badge-dark' }}">
-                                            {{ $list->list_status == 1 ? 'Active' : 'Deactive' }}
-                                        </a>
-                                    </td>
+                                @if ($notified_date > now())
+                                    <tr>
+                                        <td>{{ $list->id }}</td>
+                                        <td>{{ $list->name }}</td>
+                                        <td>{{ $list->email }}</td>
+                                        <td>{{ $list->package->package_name }}</td>
+                                        <td>{{ $list->package->package_duartion . ' ' . 'Days' }}</td>
 
-                                    <td class="d-flex">
-                                        <a href="{{ route('packageList.edit', $list->id) }}"
-                                            class="btn btn-sm btn-primary ml-2">
-                                            <i class="fa fa-edit"></i>
-                                        </a>
 
-                                        @if ($list->list_status == 1)
-                                            <a href="{{ route('packageList.deActive', $list->id) }}"
-                                                class="btn btn-sm btn-warning ml-2">
-                                                <i class="fa fa-arrow-down"></i>
+                                        <td>
+                                            <a class="{{ $notified_date > now() ? 'badge badge-info' : '' }}">
+                                                {{ $notified_date > now() ? 'Running' : '' }}
                                             </a>
-                                        @else
-                                            <a href="{{ route('packageList.active', $list->id) }}"
-                                                class="btn btn-sm btn-success ml-2">
-                                                <i class="fa fa-arrow-up"></i>
-                                            </a>
-                                        @endif
-
-
-                                        <form method="POST" action="{{ route('packageList.delete', $list->id) }}">
-                                            @csrf
-                                            @method('DELETE')
-                                            <a class="btn btn-sm btn-danger pckgListDlt ml-2">
-                                                <i class="fa fa-trash"></i>
-                                            </a>
-                                        </form>
-                                    </td>
-                                </tr>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

@@ -13,7 +13,7 @@ class PackagelistController extends Controller
     //View Package Lists
     public function index()
     {
-        $lists = Packagelist::with('user', 'package')->get();
+        $lists = User::with('package')->whereNotIn('role', [1])->get();
         return view('backend.packageList.index', compact('lists'));
     }
 

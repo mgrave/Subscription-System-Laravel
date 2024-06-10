@@ -19,7 +19,7 @@
                         <tbody>
                             @foreach ($reports as $report)
                                 @php
-                                    $notified_date = $report->start_date->addDay(
+                                    $notified_date = $report->start_date?->addDay(
                                         $report->package->package_duartion - 2,
                                     );
                                 @endphp
@@ -27,8 +27,8 @@
                                 @if ($notified_date < now())
                                     <tr>
                                         <td>{{ $report->id }}</td>
-                                        <td>{{ $report->user->name }}</td>
-                                        <td>{{ $report->package->package_name }}</td>
+                                        <td>{{ $report->name }}</td>
+                                        <td>{{ $report->package?->package_name }}</td>
 
                                         <td>
                                             <a href="{{ route('notification.renew', $report->id) }}"
@@ -47,4 +47,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('js')
+    @include('inc.tostr')
 @endsection

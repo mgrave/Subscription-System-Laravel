@@ -12,7 +12,9 @@
             <option value="30">30 days</option>
         </select>
 
-        <input type="date" name="start_date" class="form-control mr-2"></input>
+        <input type="date" name="start_date" class="form-control mr-2">
+
+        {{-- <input type="date" name="custom" class="form-control mr-2"> --}}
 
         <a class="btn btn-sm btn-danger sBtn">
             Filter
@@ -35,21 +37,26 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @php
+                                $total = 0;
+                            @endphp
                             @foreach ($reports as $report)
+                                @php
+                                    $total += $report->package->package_price;
+                                @endphp
                                 <tr>
                                     <td>{{ $report->id }}</td>
-                                    <td>{{ $report->user->name }}</td>
-                                    <td>{{ $report->package->package_name }}</td>
-                                    <td>{{ $report->package->package_price }} BDT</td>
+                                    <td>{{ $report->name ?? '' }}</td>
+                                    <td>{{ $report->package->package_name ?? '' }}</td>
+                                    <td>{{ $report->package->package_price ?? '' }} BDT</td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
                 <div class="card-footer">
-                    @if (!empty($totalPrice))
-                        <p class="badge badge-lg badge-info text-5">Total Amount {{ $totalPrice }}</p>
-                    @endif
+                    <p class="badge badge-lg badge-info text-5">Total Amount {{ $total }}
+                    </p>
                 </div>
             </div>
         </div>
@@ -77,7 +84,7 @@
                             res +=
                                 '<tr>' +
                                 '<td>' + value.id + '</td>' +
-                                '<td>' + value.user.name + '</td>' +
+                                '<td>' + value.name + '</td>' +
                                 '<td>' + value.package.package_name + '</td>' +
                                 '<td>' + value.package.package_price + '</td>' +
                                 '</tr>';
@@ -105,7 +112,7 @@
                             res +=
                                 '<tr>' +
                                 '<td>' + value.id + '</td>' +
-                                '<td>' + value.user.name + '</td>' +
+                                '<td>' + value.name + '</td>' +
                                 '<td>' + value.package.package_name + '</td>' +
                                 '<td>' + value.package.package_price + '</td>' +
                                 '</tr>';

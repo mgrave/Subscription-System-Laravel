@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\backend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Package;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -12,14 +13,15 @@ class UserController extends Controller
     //Show User Page
     public function index()
     {
-        $users = User::where('role', 0)->get();
+        $users = User::with('package')->where('role', 0)->get();
         return view('backend.users.index', compact('users'));
     }
 
     //Show User Page
     public function create()
     {
-        return view('backend.users.create');
+        $packages = Package::all();
+        return view('backend.users.create', compact('packages'));
     }
 
     //Store New User
@@ -27,25 +29,27 @@ class UserController extends Controller
     {
         $request->validate(
             [
-                'name'     => 'required|max:20',
-                'email'    => 'required|max:50|email|unique:users',
-                'phone'    => 'required|max:14|unique:users',
+                'name'  => 'required|max:20',
+                'email' => 'required|max:50|email|unique:users',
+                'phone' => 'required|max:14|unique:users',
             ],
             [
-                'name.required'     => 'Name Is Required!',
-                'email.required'    => 'Email Is Required!',
-                'email.unique'      => 'Email Already Exist!',
-                'phone.required'    => 'Phone Is Required!',
-                'phone.unique'      => 'Phone Already Exist!',
+                'name.required'  => 'Name Is Required!',
+                'email.required' => 'Email Is Required!',
+                'email.unique'   => 'Email Already Exist!',
+                'phone.required' => 'Phone Is Required!',
+                'phone.unique'   => 'Phone Already Exist!',
             ]
         );
 
         $user = User::create([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'phone'    => $request->phone,
-            'facebook' => $request->facebook,
-            'password' => Hash::make('12345'),
+            'package_id' => $request->package_id,
+            'start_date' => $request->start_date,
+            'name'       => $request->name,
+            'email'      => $request->email,
+            'phone'      => $request->phone,
+            'facebook'   => $request->facebook,
+            'password'   => Hash::make('12345'),
         ]);
 
         if ($user) {
@@ -58,9 +62,11 @@ class UserController extends Controller
     //User Edit Page
     public function edit($id)
     {
-        $user = User::find($id);
+        $user     = User::find($id);
+        $packages = Package::all();
+
         if ($user) {
-            return view('backend.users.edit', compact('user'));
+            return view('backend.users.edit', compact('user', 'packages'));
         } else {
             return back()->with('error', 'User Not Found!');
         }
@@ -90,10 +96,12 @@ class UserController extends Controller
         );
 
         $user->update([
-            'name'     => $request->name,
-            'email'    => $request->email,
-            'phone'    => $request->phone,
-            'facebook' => $request->facebook,
+            'package_id' => $request->package_id,
+            'start_date' => $request->start_date,
+            'name'       => $request->name,
+            'email'      => $request->email,
+            'phone'      => $request->phone,
+            'facebook'   => $request->facebook,
         ]);
 
         if ($user) {
@@ -156,5 +164,14 @@ class UserController extends Controller
         } else {
             return back()->with('error', 'Something Wrong!');
         }
+    }
+
+    public function fetch(Request $request)
+    {
+        $packages = Package::findOrfail($request->package_id);
+
+        return response()->json([
+            'data' => $packages,
+        ]);
     }
 }
